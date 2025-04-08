@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { redirect } from '@sveltejs/kit';
+	import Calendar from '../ui/components/Calendar.svelte';
 
 	export const load = () => {
 		const nickName = localStorage.getItem('nickName');
@@ -14,5 +15,6 @@
 	};
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<div class="my-10">
+	<Calendar />
+</div>
