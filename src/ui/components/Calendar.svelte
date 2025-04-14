@@ -20,44 +20,52 @@
 		});
 	});
 
-	function generateCalendar(year: number, month: number): Day[] {
-		const startOfMonth = new Date(year, month, 1);
-		const endOfMonth = new Date(year, month + 1, 0);
-		const firstDayOfWeek = startOfMonth.getDay();
+	function generateCalendar(y: number, m: number): Day[] {
+		const result: Day[] = [];
 
+		const startOfMonth = new Date(y, m, 1);
+		const endOfMonth = new Date(y, m + 1, 0);
 		const totalDays = endOfMonth.getDate();
-		const days: Day[] = [];
 
-		const prevMonth = new Date(year, month, 0);
+		// 이전 달 앞부분 보정
+		const firstDayOfWeek = startOfMonth.getDay(); // 0 = Sunday, 1 = Monday
+		const prevMonth = new Date(y, m, 0);
 		const prevMonthDays = prevMonth.getDate();
+
 		for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-			days.push({
-				date: new Date(year, month - 1, prevMonthDays - i),
-				isCurrentMonth: false,
-				menu: ''
-			});
+			const d = new Date(y, m - 1, prevMonthDays - i);
+			if (d.getDay() >= 1 && d.getDay() <= 5) {
+				result.push({ date: d, isCurrentMonth: false, menu: '' });
+			}
 		}
 
 		for (let i = 1; i <= totalDays; i++) {
-			days.push({
-				date: new Date(year, month, i),
-				isCurrentMonth: true,
-				menu: breakfastMenu.getMenu(year, month + 1, i)
-			});
+			const d = new Date(y, m, i);
+			if (d.getDay() >= 1 && d.getDay() <= 5) {
+				result.push({
+					date: d,
+					isCurrentMonth: true,
+					menu: breakfastMenu.getMenu(y, m + 1, i)
+				});
+			}
 		}
 
-		while (days.length < 42) {
-			const last = days[days.length - 1].date;
+		// 다음 달 채우기
+		while (result.length < 25) {
+			// 평일만 기준으로 5x5 보장
+			const last = result[result.length - 1].date;
 			const next = new Date(last);
 			next.setDate(last.getDate() + 1);
-			days.push({
-				date: next,
-				isCurrentMonth: false,
-				menu: '' // 다음 달의 날짜
-			});
+			if (next.getDay() >= 1 && next.getDay() <= 5) {
+				result.push({
+					date: next,
+					isCurrentMonth: false,
+					menu: ''
+				});
+			}
 		}
 
-		return days;
+		return result;
 	}
 
 	function prevMonth() {
@@ -85,9 +93,9 @@
 	<button onclick={nextMonth} class="cursor-pointer rounded bg-gray-200 p-3">&gt;</button>
 </div>
 
-<div class="grid grid-cols-7 gap-1">
+<div class="grid grid-cols-5 gap-1">
 	<!-- 요일 -->
-	{#each ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as day}
+	{#each ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] as day}
 		<div class="text-center font-bold">{day}</div>
 	{/each}
 

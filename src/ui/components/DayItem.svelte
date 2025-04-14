@@ -15,7 +15,8 @@
 	>
 		{date.getDate()}
 	</div>
-	<span class="e mt-1 text-xs">
+	<div class="my-1 h-[1px] w-full bg-white"></div>
+	<span class="mt-1 text-xs">
 		{menu}
 	</span>
 </div>

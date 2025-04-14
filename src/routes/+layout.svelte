@@ -17,7 +17,7 @@
 </script>
 
 <main
-	class="relative mx-auto flex max-h-[100svh] min-h-screen max-w-[600px] flex-col overflow-scroll bg-gray-100"
+	class="relative mx-auto flex max-h-[100svh] min-h-screen max-w-[800px] flex-col overflow-scroll bg-gray-100"
 >
 	<header>
 		<div class="flex h-16 items-center justify-between bg-gray-800 px-4 text-white">
