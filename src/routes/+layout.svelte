@@ -16,7 +16,9 @@
 	// });
 </script>
 
-<main class="relative mx-auto min-h-screen max-w-[600px] bg-gray-100">
+<main
+	class="relative mx-auto flex max-h-[100svh] min-h-screen max-w-[600px] flex-col overflow-scroll bg-gray-100"
+>
 	<header>
 		<div class="flex h-16 items-center justify-between bg-gray-800 px-4 text-white">
 			<div class="text-lg font-bold">EXIMBAY 조식 캘린더</div>
@@ -25,12 +27,10 @@
 			</div>
 		</div>
 	</header>
-	<div>
-		<div class="header">
-			{@render children()}
-		</div>
+	<div class="flex-1">
+		{@render children()}
 	</div>
-	<footer class="absolute right-0 bottom-0 left-0 w-full">
+	<footer class="w-full">
 		<div class="flex h-16 flex-col items-center justify-center bg-gray-800 text-white">
 			<p>© 2023 EXIMBAY. All rights reserved.</p>
 			<p class="text-sm font-thin">
@@ -43,3 +43,12 @@
 		</div>
 	</footer>
 </main>
+
+<style>
+	main {
+		scrollbar-width: none;
+	}
+	::-webkit-scrollbar {
+		display: none;
+	}
+</style>

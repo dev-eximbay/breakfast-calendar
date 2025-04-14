@@ -4,7 +4,6 @@
 
 	export const load = () => {
 		const nickName = localStorage.getItem('nickName');
-		console.log(nickName);
 
 		if (!nickName) {
 			alert('You are not logged in');
@@ -15,6 +14,6 @@
 	};
 </script>
 
-<div class="my-10">
+<div class="my-4">
 	<Calendar />
 </div>

@@ -1,18 +1,24 @@
 <script lang="ts">
+	import breakfastMenu from '../../store/breakfast-menu';
 	import DayItem from './DayItem.svelte';
 
 	let today = new Date();
-	let year = today.getFullYear();
-	let month = today.getMonth(); // 0 ~ 11
+	let year = $state(today.getFullYear());
+	let month = $state(today.getMonth()); // 0 ~ 11
 
 	interface Day {
 		date: Date;
+		menu: string;
 		isCurrentMonth: boolean;
 	}
 
-	let days: Day[] = [];
+	let days: Day[] = $state([]);
 
-	$: days = generateCalendar(year, month);
+	$effect(() => {
+		breakfastMenu.fetchItems(year, month + 1).then(() => {
+			days = generateCalendar(year, month);
+		});
+	});
 
 	function generateCalendar(year: number, month: number): Day[] {
 		const startOfMonth = new Date(year, month, 1);
@@ -27,14 +33,16 @@
 		for (let i = firstDayOfWeek - 1; i >= 0; i--) {
 			days.push({
 				date: new Date(year, month - 1, prevMonthDays - i),
-				isCurrentMonth: false
+				isCurrentMonth: false,
+				menu: ''
 			});
 		}
 
 		for (let i = 1; i <= totalDays; i++) {
 			days.push({
 				date: new Date(year, month, i),
-				isCurrentMonth: true
+				isCurrentMonth: true,
+				menu: breakfastMenu.getMenu(year, month + 1, i)
 			});
 		}
 
@@ -42,7 +50,11 @@
 			const last = days[days.length - 1].date;
 			const next = new Date(last);
 			next.setDate(last.getDate() + 1);
-			days.push({ date: next, isCurrentMonth: false });
+			days.push({
+				date: next,
+				isCurrentMonth: false,
+				menu: '' // 다음 달의 날짜
+			});
 		}
 
 		return days;
@@ -68,9 +80,9 @@
 </script>
 
 <div class="mb-4 flex items-center justify-between">
-	<button on:click={prevMonth} class="cursor-pointer rounded bg-gray-200 px-2 py-1">&lt;</button>
+	<button onclick={prevMonth} class="cursor-pointer rounded bg-gray-200 p-3">&lt;</button>
 	<h2 class="text-xl font-bold">{year}년 {month + 1}월</h2>
-	<button on:click={nextMonth} class="cursor-pointer rounded bg-gray-200 px-2 py-1">&gt;</button>
+	<button onclick={nextMonth} class="cursor-pointer rounded bg-gray-200 p-3">&gt;</button>
 </div>
 
 <div class="grid grid-cols-7 gap-1">
@@ -80,11 +92,11 @@
 	{/each}
 
 	<!-- 날짜 -->
-	{#each days as { date, isCurrentMonth }}
+	{#each days as { date, isCurrentMonth, menu }}
 		{#if date.toDateString() === today.toDateString()}
-			<DayItem {date} {isCurrentMonth} isToday />
+			<DayItem {date} {isCurrentMonth} {menu} isToday />
 		{:else}
-			<DayItem {date} {isCurrentMonth} isToday={false} />
+			<DayItem {date} {isCurrentMonth} {menu} isToday={false} />
 		{/if}
 	{/each}
 </div>

@@ -2,15 +2,20 @@
 	export let date: Date;
 	export let isCurrentMonth: boolean;
 	export let isToday: boolean;
+	export let menu: string;
 </script>
 
 <div
-	class={`flex h-[50px] w-full items-center justify-center rounded 
-	${isCurrentMonth ? 'text-black' : 'text-gray-400'}`}
+	class={`flex min-h-[90px] w-full flex-col items-center rounded p-2 
+		${isCurrentMonth ? 'bg-gray-800' : 'bg-gray-500'} 
+		${isCurrentMonth ? 'text-white' : 'text-gray-400'}`}
 >
 	<div
-		class={`flex h-[40px] w-[40px] items-center justify-center rounded-full ${isToday ? 'bg-blue-500 text-white' : 'bg-white'}`}
+		class={`flex h-[30px] w-[30px] items-center justify-center rounded-full ${isToday ? 'bg-blue-500 text-white' : 'text-white'}`}
 	>
 		{date.getDate()}
 	</div>
+	<span class="e mt-1 text-xs">
+		{menu}
+	</span>
 </div>
