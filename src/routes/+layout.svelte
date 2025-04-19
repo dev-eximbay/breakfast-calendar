@@ -33,13 +33,13 @@
 	<footer class="w-full">
 		<div class="flex h-16 flex-col items-center justify-center bg-gray-800 text-white">
 			<p>© 2023 EXIMBAY. All rights reserved.</p>
-			<p class="text-sm font-thin">
+			<!-- <p class="text-sm font-thin">
 				made by <a
 					class="font-normal text-blue-400"
 					href="https://eximbay-hq.slack.com/team/U04V07D0D4M"
 					target="_blank">Robin</a
 				>
-			</p>
+			</p> -->
 		</div>
 	</footer>
 </main>
