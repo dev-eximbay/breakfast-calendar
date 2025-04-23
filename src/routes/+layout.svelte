@@ -23,7 +23,6 @@
 		<div class="flex h-16 items-center justify-between bg-gray-800 px-4 text-white">
 			<div class="text-lg font-bold">EXIMBAY 조식 캘린더</div>
 			<div class="flex items-center space-x-4">
-				<a href="/login" class="text-gray-300 hover:text-white">Login</a>
 			</div>
 		</div>
 	</header>
