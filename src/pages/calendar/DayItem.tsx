@@ -44,6 +44,7 @@ const DayItem = ({
   }, [dateString, menu]);
 
   const handleClick = () => {
+    if (menu === "") return; // 메뉴가 없을 때는 클릭하지 않음
     likeMenu(dateString).then(() => {
       setIsLike(!isLike);
     });
@@ -62,12 +63,14 @@ const DayItem = ({
       </div>
       <div className="my-1 h-[1px] w-full bg-white"></div>
       <span className="flex-1 mt-1 text-xs">{menu}</span>
-      <div className="w-full flex justify-end gap-1 items-center">
-        <button className="cursor-pointer" onClick={handleClick}>
-          {isLike ? <MdThumbUpAlt /> : <MdThumbUpOffAlt />}
-        </button>
-        <p className="text-xs">{liekCount}</p>
-      </div>
+      {menu !== "" && (
+        <div className="w-full flex justify-end gap-1 items-center">
+          <button className="cursor-pointer" onClick={handleClick}>
+            {isLike ? <MdThumbUpAlt /> : <MdThumbUpOffAlt />}
+          </button>
+          <p className="text-xs">{liekCount}</p>
+        </div>
+      )}
     </div>
   );
 };
