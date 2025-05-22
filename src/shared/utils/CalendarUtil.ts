@@ -18,7 +18,7 @@ export const getCalendarDate = (year: number, month: number) => {
   // const prevMonthDate = new Date(year, month - 1, 0);
   // const prevMonthTotalDays = prevMonthDate.getDate();
 
-  const result: Omit<DayItems, "menu">[] = [];
+  const result: Omit<DayItems, "menu" | "likes" | "dateString">[] = [];
 
   // 이전 달 날짜
   for (let i = firstDayOfWeek - 1; i >= 0; i--) {

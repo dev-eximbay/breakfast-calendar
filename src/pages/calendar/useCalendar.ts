@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import type { DateType, DayItems } from "../../shared/types";
+import type { BreakfastItem, DateType, DayItems } from "../../shared/types";
 import { getCalendarDate, getYMDNow } from "../../shared/utils/CalendarUtil";
 import { useBreakfastMenu } from "../../store/useMuenuStroe";
 
@@ -14,9 +14,9 @@ export const useCalendar = () => {
     error,
   } = useBreakfastMenu(year, month);
 
-  const getMenu = useCallback(
-    (day: number): string => {
-      if (!breakfastItems) return "";
+  const getItem = useCallback(
+    (day: number): BreakfastItem | undefined => {
+      if (!breakfastItems) return;
       const menuEntry = breakfastItems.find((item) => {
         return (
           item.dateString ===
@@ -25,7 +25,7 @@ export const useCalendar = () => {
             .padStart(2, "0")}`
         );
       });
-      return menuEntry?.menu || "";
+      return menuEntry;
     },
     [breakfastItems, year, month]
   );
@@ -63,16 +63,15 @@ export const useCalendar = () => {
   const calendarList: DayItems[] = useMemo(
     () =>
       getCalendarDate(year, month).map((day) => {
-        const data: DayItems = {
-          date: day.date,
-          isCurrentMonth: day.isCurrentMonth,
-          isToday: day.isToday,
-          menu: getMenu(day.date.getDate()),
+        const item = getItem(day.date.getDate());
+        return {
+          ...day,
+          menu: item?.menu || "",
+          like: item?.like || 0,
+          dateString: item?.dateString || "",
         };
-
-        return data;
       }),
-    [year, month, getMenu]
+    [year, month, getItem]
   );
 
   return {

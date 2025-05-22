@@ -1,14 +1,17 @@
 export type BreakfastItem = {
   menu: string;
   dateString: string;
-  date: Date; // Firestore 타임스탬프를 Date 객체로 변환하여 사용한다고 가정합니다.
+  date: Date;
+  like?: number;
 };
 
 export interface DayItems {
   date: Date;
+  dateString: string;
   isCurrentMonth: boolean;
   isToday: boolean;
   menu: string;
+  like: number;
 }
 
 export type DateType = {

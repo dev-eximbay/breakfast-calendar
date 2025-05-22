@@ -10,7 +10,6 @@ export const fetchBreakfastItemsFromFirestore = async (
   const startId = `${year}-${month.toString().padStart(2, "0")}-01`;
   const endId = `${year}-${month.toString().padStart(2, "0")}-31`;
 
-  console.log("fetchBreakfastItemsFromFirestore", startId, endId);
   try {
     const collection = getFirestoreCollection("breakfasts");
     const q = query(
@@ -26,8 +25,12 @@ export const fetchBreakfastItemsFromFirestore = async (
         menu: data.menu,
         dateString: data.dateString,
         date: new Date(data.dateString),
+        like: data.like || 0,
       });
     });
+
+    console.log("Fetched breakfast items:", items);
+
     return items;
   } catch (error) {
     console.error("Error fetching breakfast items:", error);
