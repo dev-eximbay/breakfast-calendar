@@ -6,7 +6,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/breakfast-calendar/">
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/" element={<MenuPage />} />
