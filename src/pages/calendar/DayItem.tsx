@@ -61,7 +61,8 @@ const DayItem = ({
         }`}>
         {date.getDate()}
       </div>
-      <div className="my-1 h-[1px] w-full bg-white"></div>
+      <div className="my-2 h-[1px] w-full bg-white"></div>
+      {menu === "" && <div className="text-xs text-gray-400">휴일 ^^</div>}
       <span className="flex-1 mt-1 text-xs">{menu}</span>
       {menu !== "" && (
         <div className="w-full flex justify-end gap-1 items-center">

@@ -35,7 +35,7 @@ export const MenuPage = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-5 gap-1">
+      <div className="grid grid-cols-5 gap-[6px] pb-5 px-1">
         {/* 요일 */}
         {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day) => (
           <div key={day} className="text-center font-bold">
