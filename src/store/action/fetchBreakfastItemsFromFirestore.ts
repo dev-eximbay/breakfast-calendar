@@ -29,8 +29,6 @@ export const fetchBreakfastItemsFromFirestore = async (
       });
     });
 
-    console.log("Fetched breakfast items:", items);
-
     return items;
   } catch (error) {
     console.error("Error fetching breakfast items:", error);

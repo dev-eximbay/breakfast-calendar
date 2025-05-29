@@ -15,13 +15,11 @@ export const getCalendarDate = (year: number, month: number) => {
   const endOfMonth = new Date(year, month, 0);
   const totalDays = endOfMonth.getDate();
   const firstDayOfWeek = startOfMonth.getDay();
-  // const prevMonthDate = new Date(year, month - 1, 0);
-  // const prevMonthTotalDays = prevMonthDate.getDate();
 
   const result: Omit<DayItems, "menu" | "like" | "dateString">[] = [];
 
   // 이전 달 날짜
-  for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+  for (let i = firstDayOfWeek - 1; i > 0; i--) {
     const prevMonthDate = new Date(year, month - 2, 0);
     const prevMonthTotalDays = prevMonthDate.getDate();
     const d = new Date(year, month - 2, prevMonthTotalDays - i);
