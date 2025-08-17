@@ -31,32 +31,18 @@ export const useCalendar = () => {
   );
 
   const prevMonthHandler = () => {
-    if (month === 0) {
-      setDate((prev) => ({
-        ...prev,
-        year: prev.year - 1,
-        month: 11,
-      }));
+    if (month === 1) {
+      setDate((prev) => ({ ...prev, year: prev.year - 1, month: 12 }));
     } else {
-      setDate((prev) => ({
-        ...prev,
-        month: prev.month - 1,
-      }));
+      setDate((prev) => ({ ...prev, month: prev.month - 1 }));
     }
   };
 
   const nextMonthHandler = () => {
-    if (month === 11) {
-      setDate((prev) => ({
-        ...prev,
-        year: prev.year + 1,
-        month: 0,
-      }));
+    if (month === 12) {
+      setDate((prev) => ({ ...prev, year: prev.year + 1, month: 1 }));
     } else {
-      setDate((prev) => ({
-        ...prev,
-        month: prev.month + 1,
-      }));
+      setDate((prev) => ({ ...prev, month: prev.month + 1 }));
     }
   };
 
@@ -64,11 +50,14 @@ export const useCalendar = () => {
     () =>
       getCalendarDate(year, month).map((day) => {
         const item = getItem(day.date.getDate());
+        const y = day.date.getFullYear();
+        const m = (day.date.getMonth() + 1).toString().padStart(2, "0");
+        const d = day.date.getDate().toString().padStart(2, "0");
         return {
           ...day,
           menu: item?.menu || "",
           like: item?.like || 0,
-          dateString: item?.dateString || "",
+          dateString: item?.dateString || `${y}-${m}-${d}`,
         };
       }),
     [year, month, getItem]
